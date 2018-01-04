@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TWorkersMapper" >
+  <resultMap id="BaseResultMap" type="com.model.TWorkers" >
+    <id column="WorkerId" property="workerid" jdbcType="VARCHAR" />
+    <result column="WorkerName" property="workername" jdbcType="VARCHAR" />
+    <result column="WorkerPassword" property="workerpassword" jdbcType="VARCHAR" />
+    <result column="WorkerTel" property="workertel" jdbcType="VARCHAR" />
+    <result column="WorkerEmail" property="workeremail" jdbcType="VARCHAR" />
+    <result column="WorkerAddress" property="workeraddress" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    WorkerId, WorkerName, WorkerPassword, WorkerTel, WorkerEmail, WorkerAddress
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.TWorkersExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_workers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_workers
+    where WorkerId = #{workerid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_workers
+    where WorkerId = #{workerid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.TWorkersExample" >
+    delete from t_workers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.TWorkers" >
+    insert into t_workers (WorkerId, WorkerName, WorkerPassword, 
+      WorkerTel, WorkerEmail, WorkerAddress
+      )
+    values (#{workerid,jdbcType=VARCHAR}, #{workername,jdbcType=VARCHAR}, #{workerpassword,jdbcType=VARCHAR}, 
+      #{workertel,jdbcType=VARCHAR}, #{workeremail,jdbcType=VARCHAR}, #{workeraddress,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.TWorkers" >
+    insert into t_workers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workerid != null" >
+        WorkerId,
+      </if>
+      <if test="workername != null" >
+        WorkerName,
+      </if>
+      <if test="workerpassword != null" >
+        WorkerPassword,
+      </if>
+      <if test="workertel != null" >
+        WorkerTel,
+      </if>
+      <if test="workeremail != null" >
+        WorkerEmail,
+      </if>
+      <if test="workeraddress != null" >
+        WorkerAddress,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workerid != null" >
+        #{workerid,jdbcType=VARCHAR},
+      </if>
+      <if test="workername != null" >
+        #{workername,jdbcType=VARCHAR},
+      </if>
+      <if test="workerpassword != null" >
+        #{workerpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="workertel != null" >
+        #{workertel,jdbcType=VARCHAR},
+      </if>
+      <if test="workeremail != null" >
+        #{workeremail,jdbcType=VARCHAR},
+      </if>
+      <if test="workeraddress != null" >
+        #{workeraddress,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.TWorkersExample" resultType="java.lang.Integer" >
+    select count(*) from t_workers
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_workers
+    <set >
+      <if test="record.workerid != null" >
+        WorkerId = #{record.workerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workername != null" >
+        WorkerName = #{record.workername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerpassword != null" >
+        WorkerPassword = #{record.workerpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workertel != null" >
+        WorkerTel = #{record.workertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workeremail != null" >
+        WorkerEmail = #{record.workeremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workeraddress != null" >
+        WorkerAddress = #{record.workeraddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_workers
+    set WorkerId = #{record.workerid,jdbcType=VARCHAR},
+      WorkerName = #{record.workername,jdbcType=VARCHAR},
+      WorkerPassword = #{record.workerpassword,jdbcType=VARCHAR},
+      WorkerTel = #{record.workertel,jdbcType=VARCHAR},
+      WorkerEmail = #{record.workeremail,jdbcType=VARCHAR},
+      WorkerAddress = #{record.workeraddress,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.TWorkers" >
+    update t_workers
+    <set >
+      <if test="workername != null" >
+        WorkerName = #{workername,jdbcType=VARCHAR},
+      </if>
+      <if test="workerpassword != null" >
+        WorkerPassword = #{workerpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="workertel != null" >
+        WorkerTel = #{workertel,jdbcType=VARCHAR},
+      </if>
+      <if test="workeremail != null" >
+        WorkerEmail = #{workeremail,jdbcType=VARCHAR},
+      </if>
+      <if test="workeraddress != null" >
+        WorkerAddress = #{workeraddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WorkerId = #{workerid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.TWorkers" >
+    update t_workers
+    set WorkerName = #{workername,jdbcType=VARCHAR},
+      WorkerPassword = #{workerpassword,jdbcType=VARCHAR},
+      WorkerTel = #{workertel,jdbcType=VARCHAR},
+      WorkerEmail = #{workeremail,jdbcType=VARCHAR},
+      WorkerAddress = #{workeraddress,jdbcType=VARCHAR}
+    where WorkerId = #{workerid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TAuthuserMapper" >
+  <resultMap id="BaseResultMap" type="com.model.TAuthuser" >
+    <id column="AuthUserId" property="authuserid" jdbcType="VARCHAR" />
+    <result column="AuthUserName" property="authusername" jdbcType="VARCHAR" />
+    <result column="AuthUserSex" property="authusersex" jdbcType="INTEGER" />
+    <result column="AuthPower" property="authpower" jdbcType="INTEGER" />
+    <result column="AuthUserEmail" property="authuseremail" jdbcType="VARCHAR" />
+    <result column="AuthUserTel" property="authusertel" jdbcType="VARCHAR" />
+    <result column="AuthUserPassword" property="authuserpassword" jdbcType="VARCHAR" />
+    <result column="LastLoginDate" property="lastlogindate" jdbcType="DATE" />
+    <result column="LastLoginIP" property="lastloginip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AuthUserId, AuthUserName, AuthUserSex, AuthPower, AuthUserEmail, AuthUserTel, AuthUserPassword, 
+    LastLoginDate, LastLoginIP
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.TAuthuserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_authuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_authuser
+    where AuthUserId = #{authuserid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_authuser
+    where AuthUserId = #{authuserid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.TAuthuserExample" >
+    delete from t_authuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.TAuthuser" >
+    insert into t_authuser (AuthUserId, AuthUserName, AuthUserSex, 
+      AuthPower, AuthUserEmail, AuthUserTel, 
+      AuthUserPassword, LastLoginDate, LastLoginIP
+      )
+    values (#{authuserid,jdbcType=VARCHAR}, #{authusername,jdbcType=VARCHAR}, #{authusersex,jdbcType=INTEGER}, 
+      #{authpower,jdbcType=INTEGER}, #{authuseremail,jdbcType=VARCHAR}, #{authusertel,jdbcType=VARCHAR}, 
+      #{authuserpassword,jdbcType=VARCHAR}, #{lastlogindate,jdbcType=DATE}, #{lastloginip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.TAuthuser" >
+    insert into t_authuser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authuserid != null" >
+        AuthUserId,
+      </if>
+      <if test="authusername != null" >
+        AuthUserName,
+      </if>
+      <if test="authusersex != null" >
+        AuthUserSex,
+      </if>
+      <if test="authpower != null" >
+        AuthPower,
+      </if>
+      <if test="authuseremail != null" >
+        AuthUserEmail,
+      </if>
+      <if test="authusertel != null" >
+        AuthUserTel,
+      </if>
+      <if test="authuserpassword != null" >
+        AuthUserPassword,
+      </if>
+      <if test="lastlogindate != null" >
+        LastLoginDate,
+      </if>
+      <if test="lastloginip != null" >
+        LastLoginIP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authuserid != null" >
+        #{authuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="authusername != null" >
+        #{authusername,jdbcType=VARCHAR},
+      </if>
+      <if test="authusersex != null" >
+        #{authusersex,jdbcType=INTEGER},
+      </if>
+      <if test="authpower != null" >
+        #{authpower,jdbcType=INTEGER},
+      </if>
+      <if test="authuseremail != null" >
+        #{authuseremail,jdbcType=VARCHAR},
+      </if>
+      <if test="authusertel != null" >
+        #{authusertel,jdbcType=VARCHAR},
+      </if>
+      <if test="authuserpassword != null" >
+        #{authuserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogindate != null" >
+        #{lastlogindate,jdbcType=DATE},
+      </if>
+      <if test="lastloginip != null" >
+        #{lastloginip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.TAuthuserExample" resultType="java.lang.Integer" >
+    select count(*) from t_authuser
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_authuser
+    <set >
+      <if test="record.authuserid != null" >
+        AuthUserId = #{record.authuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authusername != null" >
+        AuthUserName = #{record.authusername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authusersex != null" >
+        AuthUserSex = #{record.authusersex,jdbcType=INTEGER},
+      </if>
+      <if test="record.authpower != null" >
+        AuthPower = #{record.authpower,jdbcType=INTEGER},
+      </if>
+      <if test="record.authuseremail != null" >
+        AuthUserEmail = #{record.authuseremail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authusertel != null" >
+        AuthUserTel = #{record.authusertel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authuserpassword != null" >
+        AuthUserPassword = #{record.authuserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastlogindate != null" >
+        LastLoginDate = #{record.lastlogindate,jdbcType=DATE},
+      </if>
+      <if test="record.lastloginip != null" >
+        LastLoginIP = #{record.lastloginip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_authuser
+    set AuthUserId = #{record.authuserid,jdbcType=VARCHAR},
+      AuthUserName = #{record.authusername,jdbcType=VARCHAR},
+      AuthUserSex = #{record.authusersex,jdbcType=INTEGER},
+      AuthPower = #{record.authpower,jdbcType=INTEGER},
+      AuthUserEmail = #{record.authuseremail,jdbcType=VARCHAR},
+      AuthUserTel = #{record.authusertel,jdbcType=VARCHAR},
+      AuthUserPassword = #{record.authuserpassword,jdbcType=VARCHAR},
+      LastLoginDate = #{record.lastlogindate,jdbcType=DATE},
+      LastLoginIP = #{record.lastloginip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.TAuthuser" >
+    update t_authuser
+    <set >
+      <if test="authusername != null" >
+        AuthUserName = #{authusername,jdbcType=VARCHAR},
+      </if>
+      <if test="authusersex != null" >
+        AuthUserSex = #{authusersex,jdbcType=INTEGER},
+      </if>
+      <if test="authpower != null" >
+        AuthPower = #{authpower,jdbcType=INTEGER},
+      </if>
+      <if test="authuseremail != null" >
+        AuthUserEmail = #{authuseremail,jdbcType=VARCHAR},
+      </if>
+      <if test="authusertel != null" >
+        AuthUserTel = #{authusertel,jdbcType=VARCHAR},
+      </if>
+      <if test="authuserpassword != null" >
+        AuthUserPassword = #{authuserpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogindate != null" >
+        LastLoginDate = #{lastlogindate,jdbcType=DATE},
+      </if>
+      <if test="lastloginip != null" >
+        LastLoginIP = #{lastloginip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AuthUserId = #{authuserid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.TAuthuser" >
+    update t_authuser
+    set AuthUserName = #{authusername,jdbcType=VARCHAR},
+      AuthUserSex = #{authusersex,jdbcType=INTEGER},
+      AuthPower = #{authpower,jdbcType=INTEGER},
+      AuthUserEmail = #{authuseremail,jdbcType=VARCHAR},
+      AuthUserTel = #{authusertel,jdbcType=VARCHAR},
+      AuthUserPassword = #{authuserpassword,jdbcType=VARCHAR},
+      LastLoginDate = #{lastlogindate,jdbcType=DATE},
+      LastLoginIP = #{lastloginip,jdbcType=VARCHAR}
+    where AuthUserId = #{authuserid,jdbcType=VARCHAR}
+  </update>
+</mapper>
