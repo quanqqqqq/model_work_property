@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TWorksheetMapper" >
+  <resultMap id="BaseResultMap" type="com.model.TWorksheet" >
+    <id column="SheetId" property="sheetid" jdbcType="INTEGER" />
+    <result column="SheetName" property="sheetname" jdbcType="VARCHAR" />
+    <result column="WorkerId" property="workerid" jdbcType="VARCHAR" />
+    <result column="AuthUserId" property="authuserid" jdbcType="VARCHAR" />
+    <result column="Process" property="process" jdbcType="INTEGER" />
+    <result column="Comsume" property="comsume" jdbcType="INTEGER" />
+    <result column="CustomerId" property="customerid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.model.TWorksheetWithBLOBs" extends="BaseResultMap" >
+    <result column="Description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="Comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SheetId, SheetName, WorkerId, AuthUserId, Process, Comsume, CustomerId
+  </sql>
+  <sql id="Blob_Column_List" >
+    Description, Comment
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.model.TWorksheetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_worksheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.model.TWorksheetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_worksheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_worksheet
+    where SheetId = #{sheetid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_worksheet
+    where SheetId = #{sheetid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.model.TWorksheetExample" >
+    delete from t_worksheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.model.TWorksheetWithBLOBs" >
+    insert into t_worksheet (SheetId, SheetName, WorkerId, 
+      AuthUserId, Process, Comsume, 
+      CustomerId, Description, Comment
+      )
+    values (#{sheetid,jdbcType=INTEGER}, #{sheetname,jdbcType=VARCHAR}, #{workerid,jdbcType=VARCHAR}, 
+      #{authuserid,jdbcType=VARCHAR}, #{process,jdbcType=INTEGER}, #{comsume,jdbcType=INTEGER}, 
+      #{customerid,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, #{comment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.TWorksheetWithBLOBs" >
+    insert into t_worksheet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sheetid != null" >
+        SheetId,
+      </if>
+      <if test="sheetname != null" >
+        SheetName,
+      </if>
+      <if test="workerid != null" >
+        WorkerId,
+      </if>
+      <if test="authuserid != null" >
+        AuthUserId,
+      </if>
+      <if test="process != null" >
+        Process,
+      </if>
+      <if test="comsume != null" >
+        Comsume,
+      </if>
+      <if test="customerid != null" >
+        CustomerId,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="comment != null" >
+        Comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sheetid != null" >
+        #{sheetid,jdbcType=INTEGER},
+      </if>
+      <if test="sheetname != null" >
+        #{sheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="workerid != null" >
+        #{workerid,jdbcType=VARCHAR},
+      </if>
+      <if test="authuserid != null" >
+        #{authuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=INTEGER},
+      </if>
+      <if test="comsume != null" >
+        #{comsume,jdbcType=INTEGER},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.model.TWorksheetExample" resultType="java.lang.Integer" >
+    select count(*) from t_worksheet
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_worksheet
+    <set >
+      <if test="record.sheetid != null" >
+        SheetId = #{record.sheetid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sheetname != null" >
+        SheetName = #{record.sheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerid != null" >
+        WorkerId = #{record.workerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authuserid != null" >
+        AuthUserId = #{record.authuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.process != null" >
+        Process = #{record.process,jdbcType=INTEGER},
+      </if>
+      <if test="record.comsume != null" >
+        Comsume = #{record.comsume,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerid != null" >
+        CustomerId = #{record.customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        Comment = #{record.comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_worksheet
+    set SheetId = #{record.sheetid,jdbcType=INTEGER},
+      SheetName = #{record.sheetname,jdbcType=VARCHAR},
+      WorkerId = #{record.workerid,jdbcType=VARCHAR},
+      AuthUserId = #{record.authuserid,jdbcType=VARCHAR},
+      Process = #{record.process,jdbcType=INTEGER},
+      Comsume = #{record.comsume,jdbcType=INTEGER},
+      CustomerId = #{record.customerid,jdbcType=VARCHAR},
+      Description = #{record.description,jdbcType=LONGVARCHAR},
+      Comment = #{record.comment,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_worksheet
+    set SheetId = #{record.sheetid,jdbcType=INTEGER},
+      SheetName = #{record.sheetname,jdbcType=VARCHAR},
+      WorkerId = #{record.workerid,jdbcType=VARCHAR},
+      AuthUserId = #{record.authuserid,jdbcType=VARCHAR},
+      Process = #{record.process,jdbcType=INTEGER},
+      Comsume = #{record.comsume,jdbcType=INTEGER},
+      CustomerId = #{record.customerid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.TWorksheetWithBLOBs" >
+    update t_worksheet
+    <set >
+      <if test="sheetname != null" >
+        SheetName = #{sheetname,jdbcType=VARCHAR},
+      </if>
+      <if test="workerid != null" >
+        WorkerId = #{workerid,jdbcType=VARCHAR},
+      </if>
+      <if test="authuserid != null" >
+        AuthUserId = #{authuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        Process = #{process,jdbcType=INTEGER},
+      </if>
+      <if test="comsume != null" >
+        Comsume = #{comsume,jdbcType=INTEGER},
+      </if>
+      <if test="customerid != null" >
+        CustomerId = #{customerid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="comment != null" >
+        Comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where SheetId = #{sheetid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.model.TWorksheetWithBLOBs" >
+    update t_worksheet
+    set SheetName = #{sheetname,jdbcType=VARCHAR},
+      WorkerId = #{workerid,jdbcType=VARCHAR},
+      AuthUserId = #{authuserid,jdbcType=VARCHAR},
+      Process = #{process,jdbcType=INTEGER},
+      Comsume = #{comsume,jdbcType=INTEGER},
+      CustomerId = #{customerid,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=LONGVARCHAR},
+      Comment = #{comment,jdbcType=LONGVARCHAR}
+    where SheetId = #{sheetid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.TWorksheet" >
+    update t_worksheet
+    set SheetName = #{sheetname,jdbcType=VARCHAR},
+      WorkerId = #{workerid,jdbcType=VARCHAR},
+      AuthUserId = #{authuserid,jdbcType=VARCHAR},
+      Process = #{process,jdbcType=INTEGER},
+      Comsume = #{comsume,jdbcType=INTEGER},
+      CustomerId = #{customerid,jdbcType=VARCHAR}
+    where SheetId = #{sheetid,jdbcType=INTEGER}
+  </update>
+  <!-- 抱歉，忘记设置工单时间了orz，希望老师体谅暂时不写 -->
+  <select id="selectByCustomerId" parameterType="String" resultMap="BaseResultMap">
+    select * from t_worksheet where CustomerId = #{customerId}
+  </select>
+  <select id="selectByWorkerId" parameterType="String" resultMap="BaseResultMap">
+    select * from t_worksheet where WorkerId = #{workerId}
+  </select>
+</mapper>

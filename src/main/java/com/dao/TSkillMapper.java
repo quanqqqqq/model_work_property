@@ -4,6 +4,7 @@ import com.model.TSkill;
 import com.model.TSkillExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TSkillMapper {
     int countByExample(TSkillExample example);

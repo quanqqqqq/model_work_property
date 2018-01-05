@@ -13,8 +13,9 @@ import java.util.List;
  * Created by QuanQqqqq on 2018/1/3.
  */
 
-@Service
+@Service("customerServiceImpl")
 public class CustomerServiceImpl implements CustomerService {
+
     @Autowired
     private TCustomerMapper tCustomerMapper;
 

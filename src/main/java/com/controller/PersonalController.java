@@ -6,6 +6,9 @@ import com.model.TWorkers;
 import com.service.AuthuserService;
 import com.service.CustomerService;
 import com.service.WorkersService;
+import com.service.impl.AuthuserServiceImpl;
+import com.service.impl.CustomerServiceImpl;
+import com.service.impl.WorkersServiceImpl;
 import com.sun.deploy.ref.AppModel;
 import com.utils.PageData;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -25,13 +28,13 @@ import java.util.Map;
 @RequestMapping("/personal")
 public class PersonalController extends BaseController {
     @Autowired
-    private AuthuserService authuserService;
+    private AuthuserServiceImpl authuserServiceImpl;
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerServiceImpl;
 
     @Autowired
-    private WorkersService workersService;
+    private WorkersServiceImpl workersServiceImpl;
 
     /**
      * 增加用户
@@ -55,7 +58,7 @@ public class PersonalController extends BaseController {
             customer.setCustomertel(pageData.getString("tel"));
             customer.setWorktotal(0);
             customer.setHasapplywork((byte) 0);
-            customerService.insert(customer);
+            customerServiceImpl.insert(customer);
             errMsg = "增加客户成功";
             status = true;
         } catch (Exception e) {
@@ -89,7 +92,7 @@ public class PersonalController extends BaseController {
             authuser.setAuthusersex(Integer.valueOf(pageData.getString("sex")));
             authuser.setAuthusertel(pageData.getString("tel"));
             authuser.setLastloginip("0");
-            authuserService.insert(authuser);
+            authuserServiceImpl.insert(authuser);
             errMsg = "增加管理员成功";
             status = true;
         } catch (Exception e) {
@@ -122,7 +125,7 @@ public class PersonalController extends BaseController {
             workers.setWorkername(pageData.getString("name"));
             workers.setWorkertel(pageData.getString("tel"));
             workers.setWorkerpassword(DigestUtils.md5Hex(pageData.getString("password")));
-            workersService.insert(workers);
+            workersServiceImpl.insert(workers);
             errMsg = "增加工人成功";
             status = true;
         } catch (Exception e) {
@@ -147,7 +150,7 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-            TCustomer customer = customerService.selectByPrimaryKey(pageData.getString("customerId"));
+            TCustomer customer = customerServiceImpl.selectByPrimaryKey(pageData.getString("customerId"));
             customer.setAddress(pageData.getString("address"));
             customer.setCustomername(pageData.getString("name"));
             customer.setCustomerpassword(DigestUtils.md5Hex(pageData.getString("password")));
@@ -155,7 +158,7 @@ public class PersonalController extends BaseController {
             customer.setCustomertel(pageData.getString("tel"));
             customer.setWorktotal(0);
             customer.setHasapplywork((byte) 0);
-            customerService.updateByPrimaryKey(customer);
+            customerServiceImpl.updateByPrimaryKey(customer);
             errMsg = "更新用户信息成功";
             status = true;
         } catch (Exception e) {
@@ -181,7 +184,7 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-            TAuthuser authuser = authuserService.selectByPrimaryKey(pageData.getString("authuserId"));
+            TAuthuser authuser = authuserServiceImpl.selectByPrimaryKey(pageData.getString("authuserId"));
             authuser.setAuthpower(Integer.valueOf(pageData.getString("authpower")));
             authuser.setAuthuseremail(pageData.getString("email"));
             authuser.setAuthuserid(pageData.getString("authuserId"));
@@ -189,7 +192,7 @@ public class PersonalController extends BaseController {
             authuser.setAuthusersex(Integer.valueOf(pageData.getString("sex")));
             authuser.setAuthusertel(pageData.getString("tel"));
             authuser.setLastloginip("0");
-            authuserService.updateByPrimaryKey(authuser);
+            authuserServiceImpl.updateByPrimaryKey(authuser);
             errMsg = "更新管理员信息成功";
             status = true;
         } catch (Exception e) {
@@ -215,14 +218,14 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-            TWorkers workers = workersService.selectByPrimaryKey(pageData.getString("workerId"));
+            TWorkers workers = workersServiceImpl.selectByPrimaryKey(pageData.getString("workerId"));
             workers.setWorkeraddress(pageData.getString("address"));
             workers.setWorkeremail(pageData.getString("email"));
             workers.setWorkerid(pageData.getString("workerId"));
             workers.setWorkername(pageData.getString("name"));
             workers.setWorkertel(pageData.getString("tel"));
             workers.setWorkerpassword(DigestUtils.md5Hex(pageData.getString("password")));
-            workersService.updateByPrimaryKey(workers);
+            workersServiceImpl.updateByPrimaryKey(workers);
             errMsg = "更新工人信息成功";
             status = true;
         } catch (Exception e) {
@@ -247,7 +250,7 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-             customerService.deleteByPrimaryKey(pageData.getString("customerId"));
+            customerServiceImpl.deleteByPrimaryKey(pageData.getString("customerId"));
              errMsg = "删除成功";
              status = true;
         } catch (Exception e) {
@@ -273,7 +276,7 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-            authuserService.deleteByPrimaryKey(pageData.getString("authuserid"));
+            authuserServiceImpl.deleteByPrimaryKey(pageData.getString("authuserid"));
             errMsg = "删除管理员成功";
             status = true;
         } catch (Exception e) {
@@ -299,7 +302,7 @@ public class PersonalController extends BaseController {
         String errMsg = "";
         PageData pageData = this.getPageData();
         try {
-            workersService.deleteByPrimaryKey(pageData.getString("workerId"));
+            workersServiceImpl.deleteByPrimaryKey(pageData.getString("workerId"));
             errMsg = "删除工人成功";
             status = true;
         } catch (Exception e) {

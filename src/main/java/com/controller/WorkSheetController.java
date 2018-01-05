@@ -1,10 +1,12 @@
 package com.controller;
 
+import com.model.TWorkersExample;
 import com.model.TWorksheet;
 import com.model.TWorksheetExample;
 import com.model.TWorksheetWithBLOBs;
 import com.service.WorkSheetService;
 import com.service.WorkersService;
+import com.service.impl.WorkSheetServiceImpl;
 import com.utils.PageData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ import java.util.Map;
 public class WorkSheetController extends BaseController {
 
     @Autowired
-    private WorkSheetService workSheetService;
+    private WorkSheetServiceImpl workSheetService;
 
     @RequestMapping("/list/{id}")
     public ModelAndView workSheetList(@PathVariable(value="id") int id) {
@@ -36,15 +38,30 @@ public class WorkSheetController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        modelAndView.setViewName("/authuser/sheetList");
+        modelAndView.setViewName("/worksheet/sheetList");
         return modelAndView;
     }
 
+    @RequestMapping("/list/workers/{workerId}")
+    public ModelAndView workSheetListForWorker(@PathVariable(value="workerId") String workerId) {
+        ModelAndView modelAndView = new ModelAndView("/worker/workSheetList");
+        try {
+            modelAndView.addObject("list", workSheetService.selectByWorkerId(workerId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return modelAndView;
+    }
 
     @RequestMapping("/detail/{id}")
     public ModelAndView workSheetDetail(@PathVariable(value="id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/authuser/sheetDetail");
+        try {
+            modelAndView.addObject("worksheet", workSheetService.selectByPrimaryKey(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        modelAndView.setViewName("/worksheet/sheetDetail");
         return modelAndView;
     }
 

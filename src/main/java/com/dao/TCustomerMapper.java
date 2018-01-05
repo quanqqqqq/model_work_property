@@ -4,6 +4,7 @@ import com.model.TCustomer;
 import com.model.TCustomerExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TCustomerMapper {
     int countByExample(TCustomerExample example);

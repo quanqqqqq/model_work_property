@@ -4,6 +4,7 @@ import com.model.TWorkers;
 import com.model.TWorkersExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TWorkersMapper {
     int countByExample(TWorkersExample example);

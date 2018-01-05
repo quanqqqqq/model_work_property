@@ -6,6 +6,9 @@ import com.model.TWorkers;
 import com.service.AuthuserService;
 import com.service.CustomerService;
 import com.service.WorkersService;
+import com.service.impl.AuthuserServiceImpl;
+import com.service.impl.CustomerServiceImpl;
+import com.service.impl.WorkersServiceImpl;
 import com.utils.PageData;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +30,13 @@ import java.util.Map;
 public class LoginController extends BaseController {
 
     @Autowired
-    private AuthuserService authuserService;
+    private AuthuserServiceImpl authuserServiceImpl;
 
     @Autowired
-    private CustomerService customerService;
+    private CustomerServiceImpl customerServiceImpl;
 
     @Autowired
-    private WorkersService workersService;
+    private WorkersServiceImpl workersServiceImpl;
 
     @RequestMapping("/api/doLogin")
     @ResponseBody
@@ -47,7 +50,7 @@ public class LoginController extends BaseController {
             String username = pageData.getString("username");
             String password = DigestUtils.md5Hex(pageData.getString("password"));
             if (type.equals("authuser")) {
-                TAuthuser authuser = authuserService.selectByPrimaryKey(username);
+                TAuthuser authuser = authuserServiceImpl.selectByPrimaryKey(username);
                 if (authuser == null) {
                     errMsg = "账号不存在";
                 } else {
@@ -62,7 +65,7 @@ public class LoginController extends BaseController {
                     }
                 }
             } else if (type.equals("customer")) {
-                TCustomer customer = customerService.selectByPrimaryKey(username);
+                TCustomer customer = customerServiceImpl.selectByPrimaryKey(username);
                 if (customer == null) {
                     errMsg = "账号不存在";
                 } else {
@@ -77,7 +80,7 @@ public class LoginController extends BaseController {
                     }
                 }
             } else if (type.equals("worker")) {
-                TWorkers workers = workersService.selectByPrimaryKey(username);
+                TWorkers workers = workersServiceImpl.selectByPrimaryKey(username);
                 if (workers == null) {
                     errMsg = "账号不存在";
                 } else {
@@ -109,7 +112,7 @@ public class LoginController extends BaseController {
         return new ModelAndView("redirect:/login");
     }
 
-    @RequestMapping("/")
+    @RequestMapping("")
     public ModelAndView login() {
         return new ModelAndView("login");
     }

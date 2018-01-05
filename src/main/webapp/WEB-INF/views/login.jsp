@@ -26,19 +26,19 @@
             </div>
             <br>
             <span class="input-group-addon">
-               <input type="radio" aria-label="..." name="type">
+               <input type="radio" aria-label="..." name="type" value="authuser">
                管理员
             </span>
                 <span class="input-group-addon">
-                <input type="radio" aria-label="..." name="type">
+                <input type="radio" aria-label="..." name="type" value="customer">
                 小区住户
             </span>
                 <span class="input-group-addon">
-                <input type="radio" aria-label="..." name="type">
+                <input type="radio" aria-label="..." name="type" value="worker">
                 物业工人
             </span>
             <br>
-            <button class="btn btn-primary">登录</button>
+            <button class="btn btn-primary" onclick="doLogin()">登录</button>
     </div>
 </body>
 </html>

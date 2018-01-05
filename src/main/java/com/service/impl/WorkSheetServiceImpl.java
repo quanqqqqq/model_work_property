@@ -1,12 +1,15 @@
 package com.service.impl;
 
+import com.dao.TWorksheetMapper;
 import com.model.TWorksheet;
 import com.model.TWorksheetExample;
 import com.model.TWorksheetWithBLOBs;
 import com.service.WorkSheetService;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -15,12 +18,15 @@ import java.util.List;
 @Service
 public class WorkSheetServiceImpl implements WorkSheetService {
 
+    @Autowired
+    private TWorksheetMapper worksheetMapper;
+
     public int countByExample(TWorksheetExample example) {
-        return 0;
+        return worksheetMapper.countByExample(example);
     }
 
     public int deleteByExample(TWorksheetExample example) {
-        return 0;
+        return worksheetMapper.deleteByExample(example);
     }
 
     public int deleteByPrimaryKey(Integer sheetid) {
@@ -69,5 +75,13 @@ public class WorkSheetServiceImpl implements WorkSheetService {
 
     public int updateByPrimaryKey(TWorksheet record) {
         return 0;
+    }
+
+    public List<TWorksheet> selectByCustomerId(String customerId) {
+        return worksheetMapper.selectByCustomerId(customerId);
+    }
+
+    public List<TWorksheet> selectByWorkerId(String workerId) {
+        return worksheetMapper.selectByWorkerId(workerId);
     }
 }

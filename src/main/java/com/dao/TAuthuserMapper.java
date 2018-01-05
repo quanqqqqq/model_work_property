@@ -4,6 +4,7 @@ import com.model.TAuthuser;
 import com.model.TAuthuserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TAuthuserMapper {
     int countByExample(TAuthuserExample example);

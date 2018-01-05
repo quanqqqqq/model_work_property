@@ -3,6 +3,7 @@ package com.controller;
 import com.model.TWorkers;
 import com.model.TWorkersExample;
 import com.service.WorkersService;
+import com.service.impl.WorkersServiceImpl;
 import com.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ import java.util.Map;
 public class WorkerController extends BaseController {
 
     @Autowired
-    private WorkersService workersService;
+    private WorkersServiceImpl workersService;
 
     @RequestMapping("list/{id}")
     public ModelAndView list(@PathVariable("id") int id) {

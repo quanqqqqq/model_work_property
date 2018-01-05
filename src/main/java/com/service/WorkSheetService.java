@@ -39,4 +39,8 @@ public interface WorkSheetService {
     int updateByPrimaryKeyWithBLOBs(TWorksheetWithBLOBs record);
 
     int updateByPrimaryKey(TWorksheet record);
+
+    List<TWorksheet> selectByCustomerId(String customerId);
+
+    List<TWorksheet> selectByWorkerId(String workerId);
 }

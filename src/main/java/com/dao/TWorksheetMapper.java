@@ -5,6 +5,7 @@ import com.model.TWorksheetExample;
 import com.model.TWorksheetWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TWorksheetMapper {
     int countByExample(TWorksheetExample example);
@@ -34,4 +35,9 @@ public interface TWorksheetMapper {
     int updateByPrimaryKeyWithBLOBs(TWorksheetWithBLOBs record);
 
     int updateByPrimaryKey(TWorksheet record);
+
+    List<TWorksheet> selectByCustomerId(String customerId);
+
+    List<TWorksheet> selectByWorkerId(String workerId);
+
 }

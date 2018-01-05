@@ -5,6 +5,7 @@ import com.model.TNoticeExample;
 import com.model.TNoticeWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.mybatis.spring.annotation.MapperScan;
 
 public interface TNoticeMapper {
     int countByExample(TNoticeExample example);
